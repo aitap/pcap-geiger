@@ -5,13 +5,6 @@
 #include <pcap/pcap.h>
 #include <thread>
 
-struct cap_ctx {
-	const char *source, *filter;
-	struct event_ring * ring;
-};
-
-void * cap_thread_run(void *);
-
 class capture_thread {
 	using queue = typename boost::lockfree::spsc_queue<unsigned int>;
 	queue & q;
