@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 #ifndef TICK_SAMPLES
-	#define TICK_SAMPLES (44100 * 8 / 1000) // 8 ms
+	#define TICK_SAMPLES (44100 * 4 / 1000) // 4 ms
 #endif
 
 #ifndef MAX_EVENT
@@ -44,7 +44,7 @@ sound_thread::sound_thread(queue & q_) : q(q_) {
 		1, // mono output
 		paFloat32,
 		44100,
-		TICK_SAMPLES * 10,
+		TICK_SAMPLES * 1024,
 		&cb,
 		(void*)&q
 	);
