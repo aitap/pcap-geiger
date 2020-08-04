@@ -15,7 +15,7 @@ Compile using a C++>=17 compiler, link with [libpcap] and [PortAudio].
 The C preprocessor defines used are:
 
 Symbol         | Meaning
--------------------------------------------------------------------------------
+---------------|---------------------------------------------------------------
 `RING_SIZE`    | How many packets to queue before dropping
 `TICK_SAMPLES` | How many sound samples per tick (assuming 44100Hz sample rate)
 `MAX_EVENT`    | Maximum packet size (bigger packets are clipped)
