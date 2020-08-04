@@ -20,11 +20,10 @@ int main(int argc, char ** argv) {
 	capture_thread cap(argv[1], argv[2], queue);
 	sound_thread snd(queue);
 
-	cap.run();
+	auto retc = cap.run();
 	snd.run();
 
-	for(;;) std::this_thread::sleep_for(std::chrono::seconds(3600));
-	// TODO: switch to futures and catch exceptions from worker threads
+	retc.get();
 
 	return -1;
 }

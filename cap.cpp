@@ -39,8 +39,16 @@ capture_thread::capture_thread(
 	}
 }
 
-void capture_thread::run() {
-	thr = std::move(std::thread(pcap_loop, cap, -1, cb, (u_char*)&q));
+std::future<void> capture_thread::run() {
+	return std::async(
+		std::launch::async,
+		[](pcap_t * p, pcap_handler cb, queue & q) {
+			(void)pcap_loop(p, -1, cb, (u_char*)&q);
+			// if pcap_loop returned, there has been an error
+			throw std::runtime_error(pcap_geterr(p));
+		},
+		cap, cb, std::ref(q)
+	);
 }
 
 capture_thread::~capture_thread() {
